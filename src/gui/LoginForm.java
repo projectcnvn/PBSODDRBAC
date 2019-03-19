@@ -464,27 +464,6 @@ public class LoginForm extends javax.swing.JFrame {
         return isBetween(fromTime, curTime, toTime);
     }
 
-    public boolean isSooner(String p1, String p2) {
-        System.out.println("p1: " + p1 + " p2: " + p2);
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
-        Date date1 = null;
-        Date date2 = null;
-        try {
-            date1 = sdf.parse(p1);
-            date2 = sdf.parse(p2);
-        } catch (ParseException ex) {
-            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (date1 == null || date2 == null) {
-            return false;
-        }
-
-        long difference = date2.getTime() - date1.getTime();
-        System.out.println("date2:" + date2.getTime() + " date1: " + date1.getTime() + " difference: " + difference);
-        return difference >= 0;
-    }
-
     public boolean isBetween(String range1, String time, String range2) {
         try {
             Date time1 = new SimpleDateFormat("HH:mm:ss a").parse(range1);

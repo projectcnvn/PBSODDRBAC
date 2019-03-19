@@ -421,38 +421,37 @@ public class UserForm extends javax.swing.JFrame {
         LocalDateTime ldt = LocalDateTime.now().plusDays(1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
         String curTime = formatter.format(ldt);
-
-        if (!isSooner(fromTime, toTime)) {
-            if (isSooner(fromTime, curTime) && isSooner(curTime, toTime)) {
-                return false;
-            }
-        } else {
-            if (!isSooner(curTime, toTime) || isSooner(curTime, fromTime)) {
-                return false;
-            }
-        }
-        return true;
+        return isBetween(fromTime, curTime, toTime);
+        
     }
 
-    public boolean isSooner(String p1, String p2) {
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
-        Date date1 = null;
-        Date date2 = null;
+    public boolean isBetween(String range1, String time, String range2) {
         try {
-            date1 = sdf.parse(p1);
-            date2 = sdf.parse(p2);
-        } catch (ParseException ex) {
-            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            Date time1 = new SimpleDateFormat("HH:mm:ss a").parse(range1);
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTime(time1);
+
+            Date time2 = new SimpleDateFormat("HH:mm:ss a").parse(range2);
+            Calendar calendar2 = Calendar.getInstance();
+            calendar2.setTime(time2);
+            if (calendar1.after(calendar2)) {
+                calendar2.add(Calendar.DATE, 1);
+            }
+
+            Date d = new SimpleDateFormat("HH:mm:ss a").parse(time);
+            Calendar calendar3 = Calendar.getInstance();
+            calendar3.setTime(d);
+            if (calendar1.after(calendar3))
+                calendar3.add(Calendar.DATE, 1);
+            
+            Date current_time = calendar3.getTime();
+            
+            return current_time.after(calendar1.getTime()) && current_time.before(calendar2.getTime());
+        } catch (ParseException e) {
         }
-
-        if (date1 == null || date2 == null) {
-            return false;
-        }
-
-        long difference = date2.getTime() - date1.getTime();
-
-        return difference >= 0;
+        return false;
     }
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
