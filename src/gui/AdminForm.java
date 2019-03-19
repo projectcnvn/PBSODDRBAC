@@ -111,6 +111,8 @@ public class AdminForm extends javax.swing.JFrame {
         listShow_createActionSet.setVisible(false);
         btnList_createActionSet.setVisible(false);
         dtm2 = (DefaultTableModel) tableActionSetCreate_createActionSet.getModel();
+        while(dtm2.getRowCount() > 0)
+            dtm2.removeRow(0);
         ActionDAO actionDAO = new ActionDAO();
         ArrayList<Action> actions = actionDAO.all();
         for (Action action : actions) {
@@ -129,7 +131,6 @@ public class AdminForm extends javax.swing.JFrame {
     }
     
     private void initRolesAndPermissionsTab() {
-        dtmRolesAndPermissions = (DefaultTableModel)tableHistory_rolesAndPermissions.getModel();
         RoleDAO roleDAO = new RoleDAO();
         cbRoleName_rolesAndPermissions.removeAllItems();
         cbPermission_rolesAndPermissions.removeAllItems();
@@ -429,11 +430,6 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel48ff = new javax.swing.JLabel();
         jLabel49ff = new javax.swing.JLabel();
         cbPermission_rolesAndPermissions = new javax.swing.JComboBox<>();
-        btnExecute_rolesAndPermissions = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tableHistory_rolesAndPermissions = new javax.swing.JTable();
-        jLabel50 = new javax.swing.JLabel();
         jLabel51 = new javax.swing.JLabel();
         fadsfsd2 = new javax.swing.JSeparator();
 
@@ -915,7 +911,6 @@ public class AdminForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel9)
                         .addComponent(cbFromDay__createUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
@@ -1534,6 +1529,7 @@ public class AdminForm extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel31)
+                        .addGap(0, 0, 0)
                         .addComponent(txtActionSetName_createActionSet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1897,47 +1893,6 @@ public class AdminForm extends javax.swing.JFrame {
 
         cbPermission_rolesAndPermissions.setFont(new java.awt.Font("Segoe UI Historic", 0, 13)); // NOI18N
 
-        btnExecute_rolesAndPermissions.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
-        btnExecute_rolesAndPermissions.setForeground(new java.awt.Color(102, 102, 102));
-        btnExecute_rolesAndPermissions.setText("Execute");
-        btnExecute_rolesAndPermissions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExecute_rolesAndPermissionsActionPerformed(evt);
-            }
-        });
-
-        btnCancel.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
-        btnCancel.setForeground(new java.awt.Color(102, 102, 102));
-        btnCancel.setText("Cancel");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
-            }
-        });
-
-        tableHistory_rolesAndPermissions.setFont(new java.awt.Font("Segoe UI Historic", 0, 13)); // NOI18N
-        tableHistory_rolesAndPermissions.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Action", "Object"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane4.setViewportView(tableHistory_rolesAndPermissions);
-
-        jLabel50.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
-        jLabel50.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel50.setText("Permission History");
-
         jLabel51.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
         jLabel51.setForeground(new java.awt.Color(102, 102, 102));
         jLabel51.setText("Permission Execution");
@@ -1949,26 +1904,13 @@ public class AdminForm extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(btnExecute_rolesAndPermissions)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancel)
-                        .addGap(79, 79, 79))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel49ff)
-                            .addComponent(jLabel48ff))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbRoleName_rolesAndPermissions, 0, 160, Short.MAX_VALUE)
-                            .addComponent(cbPermission_rolesAndPermissions, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)))
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel50)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jLabel49ff)
+                    .addComponent(jLabel48ff))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbRoleName_rolesAndPermissions, 0, 160, Short.MAX_VALUE)
+                    .addComponent(cbPermission_rolesAndPermissions, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(324, Short.MAX_VALUE))
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1983,24 +1925,15 @@ public class AdminForm extends javax.swing.JFrame {
                 .addComponent(jLabel51)
                 .addGap(15, 15, 15)
                 .addComponent(fadsfsd2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(jLabel50)
+                .addGap(66, 66, 66)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel48ff)
+                    .addComponent(cbRoleName_rolesAndPermissions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel48ff)
-                            .addComponent(cbRoleName_rolesAndPermissions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel49ff)
-                            .addComponent(cbPermission_rolesAndPermissions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnExecute_rolesAndPermissions)
-                            .addComponent(btnCancel)))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel49ff)
+                    .addComponent(cbPermission_rolesAndPermissions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(404, Short.MAX_VALUE))
         );
 
         tabbed.addTab("", jPanel9);
@@ -2057,6 +1990,7 @@ public class AdminForm extends javax.swing.JFrame {
 
             if (status == 1) {
                 initCreateActionTab();
+                initActionSet();
                 JOptionPane.showMessageDialog(this,
                         "Action has been successfully added.",
                         "Action creation result",
@@ -2179,6 +2113,7 @@ public class AdminForm extends javax.swing.JFrame {
                         "Role has been successfully added.",
                         "Role creation result",
                         JOptionPane.INFORMATION_MESSAGE);
+                initRolesAndPermissionsTab();
             } else {
                 JOptionPane.showMessageDialog(this,
                         "Role has not been added.",
@@ -2221,11 +2156,11 @@ public class AdminForm extends javax.swing.JFrame {
 
                 if (status == 1) {
 //                    initCreateActionTab();
-                initCreatePermission();
                     JOptionPane.showMessageDialog(this,
                             "Container has been successfully added.",
                             "Container creation result",
                             JOptionPane.INFORMATION_MESSAGE);
+                    initCreatePermission();
                 } else {
                     JOptionPane.showMessageDialog(this,
                             "Container has not been added.",
@@ -2281,54 +2216,6 @@ public class AdminForm extends javax.swing.JFrame {
     private void jPanel6FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel6FocusGained
         initCategorizeObject();
     }//GEN-LAST:event_jPanel6FocusGained
-
-    private void btnExecute_rolesAndPermissionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecute_rolesAndPermissionsActionPerformed
-        String permission = (String) cbPermission_rolesAndPermissions.getSelectedItem();
-        if (permission == null || permission.equals("")) {
-            JOptionPane.showMessageDialog(this, "There's no permission chosen",
-                "Can't Execute", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        String action = permission.split("--")[1].trim();
-        String obj = permission.split("--")[0].trim();
-
-        ObjectDAO objectDAO = new ObjectDAO();
-        ActionDAO actionDAO = new ActionDAO();
-
-        Action act = actionDAO.getByName(action);
-
-        int getStuck = -1;
-
-        for (int i = 0; i < dtmRolesAndPermissions.getRowCount(); i++) {
-            Action act2 = actionDAO.getByName((String) dtmRolesAndPermissions.getValueAt(i, 0));
-            if (obj.equals((String) dtmRolesAndPermissions.getValueAt(i, 1))) {
-                if (actionDAO.isConflicted(act, act2)) {
-                    getStuck = i;
-
-                }
-            }
-        }
-        if (getStuck == -1) {
-            dtmRolesAndPermissions.addRow(new String[]{action, obj});
-            JOptionPane.showMessageDialog(this,
-                "You executed '" + action + "' on " + obj + " successfully",
-                "Execute successfully",
-                JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this,
-                "You can't execute '" + action + "' on " + obj + " because"
-                + " being conflicted with '"
-                + actionDAO.getByName((String) dtmRolesAndPermissions.getValueAt(getStuck, 0)).getActionName() + "'",
-                "Can't execute action",
-                JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_btnExecute_rolesAndPermissionsActionPerformed
-
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        this.setVisible(false);
-        this.dispose();
-        parent.setVisible(true);
-    }//GEN-LAST:event_btnCancelActionPerformed
 
     private void setColor(JPanel panel){
         panel.setBackground(new Color(135, 112, 225));
@@ -2554,6 +2441,7 @@ public class AdminForm extends javax.swing.JFrame {
         int status = permissionDAO.insert(permission);
         permission.setPermissionID(permissionDAO.getCurrentID());
         if (status == 1) {
+            loadPermission();
             JOptionPane.showMessageDialog(this,
                 "Permission has been successfully added.",
                 "Permission creation result",
@@ -2583,6 +2471,7 @@ public class AdminForm extends javax.swing.JFrame {
             permission.setPermissionID(permissionDAO.getCurrentID());
         }
         if (status == 1) {
+            loadPermission();
             JOptionPane.showMessageDialog(this,
                 "Permission has been successfully added.",
                 "Permission creation result",
@@ -2612,6 +2501,7 @@ public class AdminForm extends javax.swing.JFrame {
             permission.setPermissionID(permissionDAO.getCurrentID());
         }
         if (status == 1) {
+            loadPermission();
             JOptionPane.showMessageDialog(this,
                 "Permission has been successfully added.",
                 "Permission creation result",
@@ -2650,7 +2540,7 @@ public class AdminForm extends javax.swing.JFrame {
                 "Permission has been successfully added.",
                 "Permission creation result",
                 JOptionPane.INFORMATION_MESSAGE);
-                initRolesAndPermissionsTab();
+            initRolesAndPermissionsTab();
         } else {
             JOptionPane.showMessageDialog(this,
                 "Permission has not been added.",
@@ -2783,7 +2673,6 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JPanel bg5;
     private javax.swing.JPanel bg6;
     private javax.swing.JPanel bg7;
-    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCreate__createUser;
     private javax.swing.JButton btnCreate_createAction;
     private javax.swing.JButton btnCreate_createContainer;
@@ -2794,7 +2683,6 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton btnCreate_createPermissionM3;
     private javax.swing.JButton btnCreate_createPermissionM4;
     private javax.swing.JButton btnCreate_createRole;
-    private javax.swing.JButton btnExecute_rolesAndPermissions;
     private javax.swing.JButton btnList_createActionSet;
     private javax.swing.JButton btnList_createContainer;
     private javax.swing.JButton btnRefresh__createUser;
@@ -2870,7 +2758,6 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel49ff;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
@@ -2898,7 +2785,6 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
@@ -2918,7 +2804,6 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabbed;
     private javax.swing.JTable tableActionSetCreate_createActionSet;
     private javax.swing.JTable tableContainerCreate_createContainer;
-    private javax.swing.JTable tableHistory_rolesAndPermissions;
     private javax.swing.JTable tablePermissionShow_createPermission;
     private javax.swing.JTextField txtActionName_createAction;
     private javax.swing.JTextField txtActionSetName_createActionSet;
