@@ -466,25 +466,28 @@ public class LoginForm extends javax.swing.JFrame {
 
     public boolean isBetween(String range1, String time, String range2) {
         try {
-            Date time1 = new SimpleDateFormat("HH:mm:ss a").parse(range1);
+            SimpleDateFormat date12format = new SimpleDateFormat("hh:mm:ss a");
+            SimpleDateFormat date24format1 = new SimpleDateFormat("HH:mm:ss");
+            Date time1 = date24format1.parse(date24format1.format(date12format.parse(range1)));
             Calendar calendar1 = Calendar.getInstance();
             calendar1.setTime(time1);
-
-            Date time2 = new SimpleDateFormat("HH:mm:ss a").parse(range2);
+            
+            SimpleDateFormat date24format2 = new SimpleDateFormat("HH:mm:ss");
+            Date time2 = date24format2.parse(date24format2.format(date12format.parse(range2)));
             Calendar calendar2 = Calendar.getInstance();
             calendar2.setTime(time2);
             if (calendar1.after(calendar2)) {
                 calendar2.add(Calendar.DATE, 1);
             }
-
-            Date d = new SimpleDateFormat("HH:mm:ss a").parse(time);
+            
+            SimpleDateFormat date24format3 = new SimpleDateFormat("HH:mm:ss");
+            Date d = date24format3.parse(date24format3.format(date12format.parse(time)));
             Calendar calendar3 = Calendar.getInstance();
             calendar3.setTime(d);
             if (calendar1.after(calendar3))
                 calendar3.add(Calendar.DATE, 1);
             
             Date current_time = calendar3.getTime();
-            
             return current_time.after(calendar1.getTime()) && current_time.before(calendar2.getTime());
         } catch (ParseException e) {
         }
