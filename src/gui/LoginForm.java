@@ -332,27 +332,27 @@ public class LoginForm extends javax.swing.JFrame {
 
     private boolean IsLoginToAdmin(String username, String password, String ip) {
         if (!username.equals("Admin")) {
-            JOptionPane.showConfirmDialog(this, "Wrong user name", 
+            JOptionPane.showConfirmDialog(this, "Wrong user name",
                     "Login failure", JOptionPane.CLOSED_OPTION);
             return false;
         }
         UserDAO userDAO = new UserDAO();
         User tmp = userDAO.getByUsername(username);
         if (tmp == null) {
-            JOptionPane.showConfirmDialog(this, "Wrong user name or password", 
+            JOptionPane.showConfirmDialog(this, "Wrong user name or password",
                     "Login failure", JOptionPane.CLOSED_OPTION);
             return false;
         }
         if (!tmp.getPassword().equals(password) || !tmp.getIpAddress().equals(ip)) {
-            
-            JOptionPane.showConfirmDialog(this, "Wrong password or IP", 
+
+            JOptionPane.showConfirmDialog(this, "Wrong password or IP",
                     "Login failure", JOptionPane.CLOSED_OPTION);
             return false;
         }
 
         if (!isRightTime(tmp.getFromDay(), tmp.getToDay(), tmp.getFromTime(), tmp.getToTime())) {
-            
-            JOptionPane.showConfirmDialog(this, "Wrong time login", 
+
+            JOptionPane.showConfirmDialog(this, "Wrong time login",
                     "Login failure", JOptionPane.CLOSED_OPTION);
             return false;
         }
@@ -374,6 +374,10 @@ public class LoginForm extends javax.swing.JFrame {
 
     private boolean IsLoginToUser(String username, String password, String ip) {
         if (username.equals("Admin")) {
+            JOptionPane.showMessageDialog(this,
+                    "Users can't login with account Admin",
+                    "Login failed",
+                    JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
         UserDAO userDAO = new UserDAO();
@@ -457,19 +461,11 @@ public class LoginForm extends javax.swing.JFrame {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
         String curTime = formatter.format(ldt);
 
-        if (!isSooner(fromTime, toTime)) {
-            if (isSooner(fromTime, curTime) && isSooner(curTime, toTime)) {
-                return false;
-            }
-        } else {
-            if (!isSooner(curTime, toTime) || isSooner(curTime, fromTime)) {
-                return false;
-            }
-        }
-        return true;
+        return isBetween(fromTime, curTime, toTime);
     }
 
     public boolean isSooner(String p1, String p2) {
+        System.out.println("p1: " + p1 + " p2: " + p2);
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
         Date date1 = null;
         Date date2 = null;
@@ -485,7 +481,34 @@ public class LoginForm extends javax.swing.JFrame {
         }
 
         long difference = date2.getTime() - date1.getTime();
-
+        System.out.println("date2:" + date2.getTime() + " date1: " + date1.getTime() + " difference: " + difference);
         return difference >= 0;
+    }
+
+    public boolean isBetween(String range1, String time, String range2) {
+        try {
+            Date time1 = new SimpleDateFormat("HH:mm:ss a").parse(range1);
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTime(time1);
+
+            Date time2 = new SimpleDateFormat("HH:mm:ss a").parse(range2);
+            Calendar calendar2 = Calendar.getInstance();
+            calendar2.setTime(time2);
+            if (calendar1.after(calendar2)) {
+                calendar2.add(Calendar.DATE, 1);
+            }
+
+            Date d = new SimpleDateFormat("HH:mm:ss a").parse(time);
+            Calendar calendar3 = Calendar.getInstance();
+            calendar3.setTime(d);
+            if (calendar1.after(calendar3))
+                calendar3.add(Calendar.DATE, 1);
+            
+            Date current_time = calendar3.getTime();
+            
+            return current_time.after(calendar1.getTime()) && current_time.before(calendar2.getTime());
+        } catch (ParseException e) {
+        }
+        return false;
     }
 }
